@@ -1,0 +1,36 @@
+{
+  "world": {
+    "title": "Asteria",
+    "subtitle": "A living atlas for curious travellers",
+    "progress": 62,
+    "locations": [
+      {
+        "id": "glass-coast",
+        "name": "Glass Coast",
+        "type": "Coastal ridge",
+        "description": "Wind-carved cliffs where the tide exposes reflective mineral shelves.",
+        "coordinates": "34.12° N · 118.45° W",
+        "color": "#78e7ff",
+        "position": { "x": 28, "y": 55 }
+      },
+      {
+        "id": "ember-ruins",
+        "name": "Ember Ruins",
+        "type": "Archaeological site",
+        "description": "A network of sun-warmed terraces connected by narrow stone bridges.",
+        "coordinates": "13.52° S · 72.54° W",
+        "color": "#ffb05c",
+        "position": { "x": 54, "y": 36 }
+      },
+      {
+        "id": "mosswood",
+        "name": "Mosswood Canopy",
+        "type": "Cloud forest",
+        "description": "Mist drifts through suspended trails high above the forest floor.",
+        "coordinates": "0.18° N · 78.47° W",
+        "color": "#96f2ad",
+        "position": { "x": 74, "y": 63 }
+      }
+    ]
+  }
+}
