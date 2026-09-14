@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#07131f">
+    <title>Exploration — World mockup</title>
+    <style>
+      :root { color-scheme: dark; --ink: #f4f8fb; --muted: #aab8c8; --line: rgba(213, 235, 255, .14); --panel: rgba(9, 26, 41, .72); --blue: #78e7ff; }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-width: 320px; font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: var(--ink); background: #07131f; }
+      button { font: inherit; color: inherit; cursor: pointer; }
+      .app { min-height: 100vh; overflow: hidden; position: relative; background: radial-gradient(circle at 70% 10%, #1d5d7b 0, transparent 25rem), linear-gradient(145deg, #06111c 5%, #0c2637 51%, #0e1c30); }
+      .app::before { content: ""; position: absolute; inset: 0; opacity: .32; background-image: linear-gradient(rgba(161,219,255,.09) 1px, transparent 1px), linear-gradient(90deg, rgba(161,219,255,.09) 1px, transparent 1px); background-size: 44px 44px; mask-image: linear-gradient(to bottom, #000, transparent 80%); }
+      header { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; padding: 26px clamp(22px, 5vw, 72px); }
+      .brand { display: flex; gap: 11px; align-items: center; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; font-size: .79rem; }
+      .brand-mark { width: 26px; height: 26px; border: 1px solid var(--blue); border-radius: 50% 50% 50% 0; transform: rotate(-45deg); box-shadow: 0 0 22px rgba(120,231,255,.55); }
+      .status { padding: 9px 13px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: .78rem; background: rgba(4, 15, 25, .36); }
+      .status i { display: inline-block; width: 7px; height: 7px; margin-right: 7px; border-radius: 50%; background: #96f2ad; box-shadow: 0 0 9px #96f2ad; }
+      main { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(240px, .75fr) minmax(420px, 1.5fr) minmax(240px, .75fr); gap: 28px; align-items: center; max-width: 1440px; min-height: calc(100vh - 82px); margin: auto; padding: 20px clamp(22px, 5vw, 72px) 56px; }
+      .eyebrow { color: var(--blue); font-size: .75rem; font-weight: 750; letter-spacing: .17em; text-transform: uppercase; }
+      h1 { max-width: 450px; margin: 15px 0; font-family: Georgia, serif; font-size: clamp(3rem, 6vw, 5.5rem); line-height: .93; letter-spacing: -.06em; }
+      .intro { max-width: 345px; color: var(--muted); font-size: 1rem; line-height: 1.6; }
+      .explore { margin-top: 26px; padding: 12px 17px; border: 1px solid rgba(120,231,255,.65); border-radius: 7px; background: rgba(120,231,255,.1); box-shadow: inset 0 0 22px rgba(120,231,255,.08); }
+      .explore:hover { background: rgba(120,231,255,.19); }
+      .world { position: relative; width: min(53vw, 640px); aspect-ratio: 1; min-width: 360px; margin: auto; border-radius: 50%; background: radial-gradient(circle at 35% 28%, #93e6e8 0 2%, transparent 2.6%), radial-gradient(ellipse at 35% 47%, #33738a 0 13%, transparent 13.6%), radial-gradient(ellipse at 66% 65%, #2c6b54 0 14%, transparent 14.7%), radial-gradient(ellipse at 72% 31%, #3c7d91 0 9%, transparent 9.6%), radial-gradient(circle at 43% 45%, #12435a 0 48%, #082536 66%, #04111d 100%); box-shadow: inset -42px -28px 75px #02070c, inset 16px 15px 35px rgba(147,237,237,.25), 0 0 85px rgba(65,193,227,.26); }
+      .world::before, .world::after { content: ""; position: absolute; inset: 8%; border: 1px solid rgba(186,239,255,.25); border-radius: 50%; transform: rotate(-24deg) scaleY(.54); }
+      .world::after { inset: 24% 5%; transform: rotate(52deg) scaleY(.54); }
+      .marker { position: absolute; width: 16px; height: 16px; padding: 0; border: 3px solid var(--marker); border-radius: 50% 50% 50% 0; background: #06131d; transform: translate(-50%, -100%) rotate(-45deg); box-shadow: 0 0 0 6px color-mix(in srgb, var(--marker) 14%, transparent), 0 0 20px var(--marker); }
+      .marker:hover, .marker.active { scale: 1.25; }
+      .marker::after { content: ""; display: block; width: 3px; height: 3px; margin: 3px; border-radius: 50%; background: var(--marker); }
+      .compass { position: absolute; top: 10%; right: -2%; width: 64px; height: 64px; border: 1px solid var(--line); border-radius: 50%; text-align: center; line-height: 62px; font-size: .7rem; letter-spacing: .12em; color: var(--muted); }
+      .details { padding: 23px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); backdrop-filter: blur(12px); }
+      .details h2 { margin: 9px 0 7px; font-size: 1.55rem; }
+      .details p { min-height: 72px; color: var(--muted); line-height: 1.55; }
+      .meta { display: flex; justify-content: space-between; gap: 15px; padding-top: 16px; border-top: 1px solid var(--line); font-size: .78rem; color: var(--muted); }
+      .locations { margin-top: 18px; }
+      .location { width: 100%; display: flex; gap: 11px; align-items: center; padding: 12px 0; border: 0; border-bottom: 1px solid var(--line); text-align: left; background: none; }
+      .location:last-child { border-bottom: 0; }.location:hover strong { color: var(--blue); }.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dot); box-shadow: 0 0 9px var(--dot); }.location span { color: var(--muted); font-size: .77rem; margin-left: auto; }
+      .progress { margin-top: 28px; }.progress-head { display: flex; justify-content: space-between; color: var(--muted); font-size: .78rem; }.track { height: 5px; margin-top: 10px; overflow: hidden; border-radius: 4px; background: rgba(255,255,255,.12); }.track b { display: block; width: var(--progress); height: 100%; border-radius: inherit; background: linear-gradient(90deg, #5cbdce, #b9f1ed); box-shadow: 0 0 12px #78e7ff; }
+      @media (max-width: 930px) { main { grid-template-columns: 1fr 1.1fr; }.details { grid-column: 1 / -1; max-width: 650px; width: 100%; margin: auto; }.world { width: min(62vw, 570px); } }
+      @media (max-width: 620px) { header { padding-bottom: 6px; }.status { display: none; } main { display: flex; flex-direction: column; align-items: stretch; padding-top: 28px; gap: 12px; }.world { min-width: 0; width: min(88vw, 440px); order: 2; }.details { order: 3; } h1 { font-size: 3.8rem; } }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <header><div class="brand"><span class="brand-mark"></span> Exploration</div><div class="status"><i></i>World data mockup</div></header>
+      <main>
+        <section><div class="eyebrow">Field notes / 01</div><h1 id="world-title">A world worth wandering.</h1><p class="intro" id="world-subtitle">A living atlas for curious travellers.</p><button class="explore" id="randomise">Find another horizon <span aria-hidden="true">↗</span></button></section>
+        <section class="world" id="world" aria-label="Interactive world map"><div class="compass">N</div></section>
+        <aside class="details"><div class="eyebrow">Current signal</div><h2 id="place-name">Loading…</h2><p id="place-description"></p><div class="meta"><span id="place-type"></span><span id="place-coordinates"></span></div><div class="locations" id="locations"></div><div class="progress"><div class="progress-head"><span>Atlas explored</span><span id="progress-value">0%</span></div><div class="track"><b id="progress-bar"></b></div></div></aside>
+      </main>
+    </div>
+    <script>
+      const $ = (selector) => document.querySelector(selector);
+      const selectLocation = (location) => {
+        $('#place-name').textContent = location.name;
+        $('#place-description').textContent = location.description;
+        $('#place-type').textContent = location.type;
+        $('#place-coordinates').textContent = location.coordinates;
+        document.querySelectorAll('[data-location]').forEach((item) => item.classList.toggle('active', item.dataset.location === location.id));
+      };
+      fetch('./world-mockup.json').then((response) => response.json()).then(({ world }) => {
+        $('#world-title').textContent = world.title + '.';
+        $('#world-subtitle').textContent = world.subtitle;
+        $('#progress-value').textContent = world.progress + '%';
+        $('#progress-bar').style.setProperty('--progress', world.progress + '%');
+        const locations = $('#locations'); const map = $('#world');
+        world.locations.forEach((location, index) => {
+          const marker = document.createElement('button'); marker.className = 'marker'; marker.dataset.location = location.id; marker.style.cssText = `--marker:${location.color}; left:${location.position.x}%; top:${location.position.y}%;`; marker.setAttribute('aria-label', `Show ${location.name}`); marker.addEventListener('click', () => selectLocation(location)); map.append(marker);
+          const item = document.createElement('button'); item.className = 'location'; item.dataset.location = location.id; item.innerHTML = `<i class="dot" style="--dot:${location.color}"></i><strong>${location.name}</strong><span>${String(index + 1).padStart(2, '0')}</span>`; item.addEventListener('click', () => selectLocation(location)); locations.append(item);
+        });
+        selectLocation(world.locations[0]);
+        $('#randomise').addEventListener('click', () => selectLocation(world.locations[Math.floor(Math.random() * world.locations.length)]));
+      }).catch(() => { $('#place-name').textContent = 'Mockup data unavailable'; $('#place-description').textContent = 'Serve this folder through a web server to load the world mockup.'; });
+    </script>
+  </body>
+</html>
